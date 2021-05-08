@@ -13,6 +13,7 @@ import VerificationCode from './VerificationCode';
 import VerificationSuccess from './VerificationSuccess';
 import VerificationFail from './VerificationFail';
 import UserDetails from './UserDetails';
+import HomeRedirect from './HomeRedirect';
 
 const Stack = createStackNavigator();
 
@@ -39,6 +40,10 @@ export default function App() {
           <Stack.Screen
             name="user-details"
             component={UserDetails}
+          />
+          <Stack.Screen
+            name="home-redirect"
+            component={HomeRedirect}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -43,7 +43,7 @@ class UserDetails extends React.Component {
               <button class="p-2 w-100 outline-green text-center">Later</button>
             </div>
             <div class="col-6">
-              <button class="p-2 w-100 solid-green text-center">Done</button>
+              <button class="p-2 w-100 solid-green text-center" onClick={() => this.props.navigation.navigate('home-redirect')}>Done</button>
             </div>
           </div>
 

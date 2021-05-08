@@ -95,7 +95,9 @@
 }
 
 .submit-button{
-	margin-top: 80vh;
+	position: absolute;
+	min-width: 50vw;
+	top: 75vh;
 	background: #3D4E52;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 50px;
@@ -248,6 +250,26 @@
 	border-color: #52BF9C
 }
 
+.active-button{
+	font-family: Poppins;
+	background: #52BF9C;
+	border: 1px solid #52BF9C;
+	box-sizing: border-box;
+	border-radius: 10px 0px 0px 10px;
+}
+
+.inactive-button{
+	font-family: Poppins;
+	background: #FFFFFF;
+	border: 1px solid #52BF9C;
+	box-sizing: border-box;
+	border-radius: 0px 10px 10px 0px;
+}
+
+.heartbeat{
+	width: 135px;
+	height: 98px;
+}
 
 input{
 	width: 303px;
@@ -262,4 +284,9 @@ input{
 
 label{
 	font-family: Poppins;
+}
+
+.form-check-input:checked {
+    background-color: #52BF9C;
+    border-color: #52BF9C;
 }

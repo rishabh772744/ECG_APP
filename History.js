@@ -5,13 +5,19 @@ import { StyleSheet, Text, View, Button} from 'react-native';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/main.css';
 
-class HomeOff extends React.Component {
+class History extends React.Component {
 
   render() {
     return (
       <View style={styles.container}>
-          
-        This is HomeOff
+          <div class="mx-5 mt-3 row no-gutter text-center">
+            <div class="col-6 inactive-button py-2">
+              Measure
+            </div>
+            <div class="col-6 active-button py-2">
+              History
+            </div>
+          </div>
       </View>
     );
   }
@@ -27,4 +33,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default HomeOff;
+export default History;

@@ -130,6 +130,19 @@ ion-content{
     margin-left: -25vw;
 }
 
+.primary-button{
+    background: #3D4E52;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50px;
+    z-index: 3;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    color: white;
+}
+
 .land-one{
 	position: absolute;
 	left: -45.28%;
@@ -333,7 +346,7 @@ ion-content{
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 	border-radius: 20px;
 
-	height: 107px;
+	height: 87px;
 
 	font-family: Poppins;
 	font-style: normal;
@@ -423,6 +436,34 @@ ion-content{
 	color: #52BF9C;
 }
 
+.user-icon{
+	color: #52BF9C;
+	position: relative;
+	top: 50%;
+	margin-top: -25px;
+}
+
+.modal-class .modal-wrapper {
+  background: transparent;
+  font-family: Poppins;
+}
+
+.modal-container{
+	position: absolute;
+	width: 90vw;
+	height: 50vh;
+	top: 50%;
+	left: 50%;
+	margin-top: -25vh;
+	margin-left: -45vw;
+	background: white;
+	border-radius: 40px;
+}
+
+.modal-header-text{
+	font-size: 20px;
+	color: #52BF9C;
+}
 
 input{
 	width: 303px;
@@ -440,6 +481,6 @@ label{
 }
 
 .form-check-input:checked {
-    background-color: #52BF9C;
-    border-color: #52BF9C;
+    background-color: #52BF9C !important;
+    border-color: #52BF9C !important;
 }

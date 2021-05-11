@@ -1,13 +1,43 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonAlert, IonButton } from '@ionic/react';
+import React, { useState } from 'react';
 import './../main.css';
 import './../bootstrap.css';
 
 import { BottomTabs } from './../components/BottomTabs';
 
 const Profile: React.FC = () => {
+
+  const [showAlert, setShowAlert] = useState(false);
+
+
+
   return (
     <IonPage>
       <IonContent fullscreen>
+
+        <IonAlert
+          isOpen={showAlert}
+          onDidDismiss={() => setShowAlert(false)}
+          cssClass='my-custom-class'
+          header={'Log Out?'}
+          message={'Are you sure you want to log out?'}
+          buttons={[
+            {
+              text: 'No',
+              role: 'cancel',
+              cssClass: 'secondary',
+              handler: blah => {
+                console.log('Confirm Cancel: blah');
+              }
+            },
+            {
+              text: 'Yes',
+              handler: () => {
+                console.log('Confirm Okay');
+              }
+            }
+          ]}
+        />
 
         <div className="profile-hero"></div>
         <div className="dp-holder"></div>
@@ -28,7 +58,7 @@ const Profile: React.FC = () => {
         </form>
 
         <div className="mx-5">
-          <div className="submit-button mx-5 py-3 px-4 text-center">Log Out</div>
+          <div className="submit-button py-3 px-4 text-center" onClick={() => setShowAlert(true)}>Log Out</div>
         </div>
         <BottomTabs name="profile" />
       </IonContent>

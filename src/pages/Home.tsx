@@ -94,7 +94,7 @@ const Home: React.FC = () => {
           </div>
 
       </IonContent> : ''}
-      <BottomTabs />
+      <BottomTabs name="home" />
     </IonPage> 
   );
 };

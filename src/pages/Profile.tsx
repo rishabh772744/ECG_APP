@@ -2,6 +2,8 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/rea
 import './../main.css';
 import './../bootstrap.css';
 
+import { BottomTabs } from './../components/BottomTabs';
+
 const Profile: React.FC = () => {
   return (
     <IonPage>
@@ -28,7 +30,7 @@ const Profile: React.FC = () => {
         <div className="mx-5">
           <div className="submit-button mx-5 py-3 px-4 text-center">Log Out</div>
         </div>
-
+        <BottomTabs name="profile" />
       </IonContent>
     </IonPage>
   );

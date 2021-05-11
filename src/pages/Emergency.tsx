@@ -2,6 +2,8 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/rea
 import './../main.css';
 import './../bootstrap.css';
 
+import { BottomTabs } from './../components/BottomTabs';
+
 const Emergency: React.FC = () => {
   return (
     <IonPage>
@@ -63,7 +65,7 @@ const Emergency: React.FC = () => {
               </div>
             </div>
           </div>
-
+          <BottomTabs name="emergency" />
       </IonContent>
     </IonPage>
   );

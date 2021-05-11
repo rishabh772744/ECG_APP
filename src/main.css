@@ -1,7 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
-.body{
+ion-content{
+	font-family: Poppins;
+}
 
+.otp-box{
+	width: 100% !important;
+	height: 65px !important;
+	border-radius: 5px !important
+}
+
+.otp-container{
+	width: 100% !important;
+	color: white;
+	font-weight: bold;
+}
+
+.verification-container{
+	background-color: #3D4E52;
+	min-height: 100vh;
+	font-family: Poppins
 }
 
 .circle-one{
@@ -96,18 +114,20 @@
 
 .submit-button{
 	position: absolute;
-	min-width: 50vw;
-	top: 75vh;
-	background: #3D4E52;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	border-radius: 50px;
-	z-index: 3;
-	font-family: Roboto;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 16px;
-	line-height: 19px;
-	color: white;
+    min-width: 50vw;
+    top: 75vh;
+    left: 50%;
+    background: #3D4E52;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50px;
+    z-index: 3;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    color: white;
+    margin-left: -25vw;
 }
 
 .land-one{
@@ -356,6 +376,43 @@
 .user-dets{
 	margin-top: 102px;
 }
+
+.bottom-tab{
+	background-color: red;
+	width: 100vw;
+	height: 79px;
+	position: absolute;
+	bottom: 0;
+}
+
+.bottom-lower{
+	background-color: blue;
+	width: 100vw;
+	height: 59px;
+	position: absolute;
+	bottom: 0;
+}
+
+.bottom-icon{
+	display: inline-block;
+	background-color: yellow;
+	height: 100%;
+	width: 25%;
+	border-color: black;
+	border-style: solid;
+}
+
+.active-bottom-icon{
+	position: relative;
+	background: blue;
+	height: 60px;
+	width: 60px;
+	left: 50%;
+	margin-left: -30px;
+	border-radius: 50%;
+	top: -20px;
+}
+
 
 input{
 	width: 303px;

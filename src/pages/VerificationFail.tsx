@@ -5,7 +5,7 @@ import './../bootstrap.css';
 const VerificationFail: React.FC = () => {
   return (
     <IonPage>
-      <IonContent fullscreen>
+      <div className="verification-container">
 
         <div className="failure-icon"></div>
         
@@ -16,9 +16,9 @@ const VerificationFail: React.FC = () => {
 
         <div className="lady"></div>
 
-        <div className="submit-button mx-5 py-3 px-4 text-center">Retry</div>
+        <div className="submit-button py-3 px-4 text-center">Retry</div>
 
-      </IonContent>
+      </div>
     </IonPage>
   );
 };

@@ -1,4 +1,8 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/react';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
 import './../main.css';
 import './../bootstrap.css';
 
@@ -7,7 +11,7 @@ const Mobile: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
 
-        <div className="circle-three"></div>
+          <div className="circle-three"></div>
           <div className="circle-two"></div>
           <div className="circle-one"></div>
 
@@ -22,12 +26,9 @@ const Mobile: React.FC = () => {
 
           
           <div className="my-5 text-center">
-            <div className="arrowButton">
-          </div>
-          
-
-          
-
+            <Link to="/verification">
+              <div className="arrowButton py-3"><FontAwesomeIcon icon={faArrowRight} size="2x" color="white"/></div>
+            </Link>
           </div>
       </IonContent>
     </IonPage>

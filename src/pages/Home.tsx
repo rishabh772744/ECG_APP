@@ -1,10 +1,18 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { useState } from 'react';
+
+import { BottomTabs } from './../components/BottomTabs';
+
 import './../main.css';
 import './../bootstrap.css';
 
 const Home: React.FC = () => {
+
+  const [deviceStatus, setDeviceStatus] = useState('off')
+
   return (
     <IonPage>
+    {deviceStatus === "off" ? 
       <IonContent fullscreen>
 
         <div className="mx-5 mt-3 row no-gutter text-center">
@@ -57,11 +65,37 @@ const Home: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="submit-button mx-5 py-3 px-4 text-center">Start</div>
+            <div className="submit-button py-3 px-4 text-center" onClick={() => setDeviceStatus("on")}>Start</div>
           </div>  
 
-      </IonContent>
-    </IonPage>
+      </IonContent> : ''}
+      {deviceStatus === "on" ? 
+      <IonContent fullscreen>
+
+        <div className="mx-5 mt-3 row no-gutter text-center">
+            <div className="col-6 active-button py-2">
+              Measure
+            </div>
+            <div className="col-6 inactive-button py-2">
+              History
+            </div>
+          </div>
+          <div className="my-3 mx-5 text-center" style={{ fontFamily: 'Poppins'}}>Device Status: ON</div>
+
+          <div className="mx-5 text-center bg-dark-heart py-4">
+            <div className="bpm-style">72 BPM</div>
+            <img className="mt-3 heartbeat-dark" src="https://i.ibb.co/rbXL1ct/Frame.png" />
+          </div>
+
+          <div className="my-3 mx-5 text-center">FITNESS STATUS: <b>GOOD</b></div> 
+
+          <div className="text-center py-4">
+            <img className="mt-3 line-chart" src="https://i.ibb.co/GMJdwyQ/Line-chart.png" />
+          </div>
+
+      </IonContent> : ''}
+      <BottomTabs />
+    </IonPage> 
   );
 };
 

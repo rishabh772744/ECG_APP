@@ -2,6 +2,8 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/rea
 import './../main.css';
 import './../bootstrap.css';
 
+import { Link } from 'react-router-dom';
+
 const VerificationSuccess: React.FC = () => {
   return (
     <IonPage>
@@ -17,7 +19,9 @@ const VerificationSuccess: React.FC = () => {
 
         <div className="lady"></div>
         
-        <div className="submit-button py-3 px-4 text-center">Done</div>
+        <Link to="/home">
+          <div className="submit-button py-3 px-4 text-center">Done</div>
+        </Link>
 
       </div>
     </IonPage>

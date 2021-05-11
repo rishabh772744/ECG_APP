@@ -1,5 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import OtpInput from 'react-otp-input';
 
 import './../main.css';
@@ -8,6 +9,14 @@ import './../bootstrap.css';
 const Verification: React.FC = () => {
 
   const [otp, setOtp] = useState('');
+  const history = useHistory();
+
+  function inputOtp(otp){
+  	setOtp(otp)
+  	if(otp.length ==4){
+  		history.push('/verification-success');
+  	}
+  }
 
   return (
     <IonPage>
@@ -18,11 +27,12 @@ const Verification: React.FC = () => {
 	        <div className="mx-4 mt-5 text-center">
 	        <OtpInput
 		        value={otp}
-		        onChange={setOtp}
+		        onChange={inputOtp}
 		        numInputs={4}
 		        separator={<span> &nbsp; &nbsp; </span>}
 		        containerStyle="otp-container"
 		        inputStyle="otp-box"
+		        isInputNum={true}
 		      />
 		     </div>
 

@@ -53,6 +53,18 @@ const UserDetails: React.FC = () => {
       })
   }
 
+  const obtainUserInfo = async () => {
+    var ret = await Storage.get({ key: 'user' });
+    if("name" in JSON.parse(ret!.value!)){
+      await setName(JSON.parse(ret!.value!)['name'])
+    }
+    if("dob" in JSON.parse(ret!.value!)){
+      await setDob(JSON.parse(ret!.value!)['dob'].substring(0, 10))
+    }
+  }
+
+  obtainUserInfo()
+
   return (
     <IonPage>
       <IonContent fullscreen>

@@ -15,8 +15,10 @@ const VerificationSuccess: React.FC = () => {
   async function goToDashboard(){
     const ret = await Storage.get({ key: 'user' });
     if("value" in ret && ret["value"] != null){
-      console.log(ret)
-      history.push('/user-details')
+      if("emergency" in JSON.parse(ret!.value!) && JSON.parse(ret!.value!)['emergency'].length > 0)
+        history.push('/home')
+      else
+        history.push('/user-details')
       window.location.reload();
     }
   }

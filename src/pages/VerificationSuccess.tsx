@@ -2,9 +2,25 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/rea
 import './../main.css';
 import './../bootstrap.css';
 
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+
+import { Plugins } from '@capacitor/core';
+
+const { Storage } = Plugins;
 
 const VerificationSuccess: React.FC = () => {
+
+  const history = useHistory();
+
+  async function goToDashboard(){
+    const ret = await Storage.get({ key: 'user' });
+    if("value" in ret && ret["value"] != null){
+      console.log(ret)
+      history.push('/user-details')
+      window.location.reload();
+    }
+  }
+
   return (
     <IonPage>
       <div className="verification-container">
@@ -19,9 +35,8 @@ const VerificationSuccess: React.FC = () => {
 
         <div className="lady"></div>
         
-        <Link to="/home">
-          <div className="submit-button py-3 px-4 text-center">Done</div>
-        </Link>
+        <div className="submit-button py-3 px-4 text-center" onClick={goToDashboard}>Done</div>
+        
 
       </div>
     </IonPage>

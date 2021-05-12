@@ -8,6 +8,10 @@ import { BottomTabs } from './../components/BottomTabs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
+import { Plugins } from '@capacitor/core';
+
+const { Storage } = Plugins;
+
 const Profile: React.FC = () => {
 
   const [showAlert, setShowAlert] = useState(false);
@@ -55,8 +59,9 @@ const Profile: React.FC = () => {
             },
             {
               text: 'Yes',
-              handler: () => {
+              handler: async () => {
                 console.log('Confirm Okay');
+                await Storage.clear();
               }
             }
           ]}

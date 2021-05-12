@@ -1,12 +1,44 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/react';
-import { Link } from 'react-router-dom';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonViewWillEnter } from '@ionic/react';
+import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
+import axios from 'axios';
 
 import './../main.css';
 import './../bootstrap.css';
 
+import { Plugins } from '@capacitor/core';
+
+const { Storage } = Plugins;
+
 const Mobile: React.FC = () => {
+
+  const [mobile, setMobile] = useState('');
+  const history = useHistory();
+
+  const setMobileInput = (event) => {
+    setMobile(event.target.value)
+  }
+
+  const loginMobile = () => {
+    var data = {'mobile': mobile}
+    axios
+      .post('http://localhost:8080/api/login', data)
+      .then(async (res) => {
+        await Storage.set({
+          key: 'mobile',
+          value: mobile
+        });
+        console.log(res)
+        history.push('/verification');
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   return (
     <IonPage>
       <IonContent fullscreen>
@@ -21,14 +53,12 @@ const Mobile: React.FC = () => {
 
           <div className="mt-4 mx-4">
             <input className="mb-2 mx-1 px-2" type="text" placeholder="Country Code"/>
-            <input className="mb-2 mx-1 px-2" type="text" placeholder="Mobile Number"/>
+            <input className="mb-2 mx-1 px-2" type="text" value={mobile} onChange={setMobileInput} placeholder="Mobile Number"/>
           </div>
 
           
           <div className="my-5 text-center">
-            <Link to="/verification">
-              <div className="arrowButton py-3"><FontAwesomeIcon icon={faArrowRight} size="2x" color="white"/></div>
-            </Link>
+            <div className="arrowButton py-3" onClick={loginMobile}><FontAwesomeIcon icon={faArrowRight} size="2x" color="white"/></div>
           </div>
       </IonContent>
     </IonPage>

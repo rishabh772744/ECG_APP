@@ -30,6 +30,16 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+import { Plugins } from '@capacitor/core';
+
+const { Storage } = Plugins;
+
+var ret = {}
+async function getUser(){
+  ret = await Storage.get({ key: 'user' });
+}
+getUser()
+
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
@@ -46,21 +56,41 @@ const App: React.FC = () => (
         <Route exact path="/verification-fail">
           <VerificationFail />
         </Route>
-        <Route exact path="/user-details">
-          <UserDetails />
-        </Route>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/location">
-          <Location />
-        </Route>
-        <Route exact path="/emergency">
-          <Emergency />
-        </Route>
-        <Route exact path="/profile">
-          <Profile />
-        </Route>
+        <Route
+          exact
+          path="/user-details"
+          render={() => {
+            return "value" in ret && ret['value'] != null ? <UserDetails /> : <Mobile/>;
+          }}
+        />
+        <Route
+          exact
+          path="/home"
+          render={() => {
+            return "value" in ret && ret['value'] != null ? <Home /> : <Mobile/>;
+          }}
+        />
+        <Route
+          exact
+          path="/location"
+          render={() => {
+            return "value" in ret && ret['value'] != null ? <Location /> : <Mobile/>;
+          }}
+        />
+        <Route
+          exact
+          path="/emergency"
+          render={() => {
+            return "value" in ret && ret['value'] != null ? <Emergency /> : <Mobile/>;
+          }}
+        />
+        <Route
+          exact
+          path="/profile"
+          render={() => {
+            return "value" in ret && ret['value'] != null ? <Profile /> : <Mobile/>;
+          }}
+        />
         <Route exact path="/">
           <Redirect to="/mobile" />
         </Route>

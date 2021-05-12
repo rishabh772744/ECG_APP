@@ -41,7 +41,8 @@ app.post('/api/login', async function(req, res) {
 		else{
 			const newUser = new User({
 				mobile: req.body.mobile,
-				otp: otp
+				otp: otp,
+				emergency: []
 			})
 
 			await newUser
@@ -89,4 +90,38 @@ app.post('/api/updateUserInfo', async function(req, res) {
 	await User.updateOne({_id: req.body.userId}, {$set: {'name': req.body.name, 'dob': req.body.dob}})
 				.then(res.json({'success': 'INFO UPDATED'}))
 				.catch(err => res.status(400).json({ err }));
+});
+
+app.post('/api/addEmergencyContact', async function(req, res) {
+	const user = await User.findById(req.body.userId)
+	console.log(req.body)
+	if(user){
+		if(req.body.name.trim() != "" && req.body.contact.trim() != ""){
+			user.emergency.unshift({
+				'name': req.body.name,
+				'contact': req.body.contact
+			})
+		}
+		await user.save();
+	}
+	else{
+		res.status(400).json({ 'failure': 'USER NOT FOUND' })
+	}
+});
+
+app.post('/api/getEmergencyContacts', async function(req, res) {
+	console.log(req.body)
+	const user = await User.findById(req.body.userId)
+
+	if(user){
+		if("emergency" in user){
+			res.json(user.emergency)
+		}
+		else{
+			res.json([])
+		}
+	}
+	else{
+		res.status(400).json({ 'failure': 'USER NOT FOUND' })
+	}
 });

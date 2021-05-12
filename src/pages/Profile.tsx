@@ -1,5 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonAlert, IonButton } from '@ionic/react';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './../main.css';
 import './../bootstrap.css';
 
@@ -17,6 +18,8 @@ const Profile: React.FC = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   const [buttonState, setButtonState] = useState("logout")
+
+  const history = useHistory();
 
   function enableInput(){
     var input = document.getElementById("name-input")!;
@@ -62,6 +65,7 @@ const Profile: React.FC = () => {
               handler: async () => {
                 console.log('Confirm Okay');
                 await Storage.clear();
+                history.push('/mobile')
               }
             }
           ]}

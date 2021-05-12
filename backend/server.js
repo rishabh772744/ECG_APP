@@ -67,3 +67,26 @@ app.post('/api/checkLogin', async function(req, res) {
 		}
 	})
 });
+
+app.post('/api/updateUserInfo', async function(req, res) {
+
+	const user = await User.findById(req.body.userId)
+
+	if(user){
+
+		if(req.body.emergency.name.trim() != "" && req.body.emergency.contact.trim() != ""){
+			user.emergency.unshift({
+				'name': req.body.emergency.name,
+				'contact': req.body.emergency.contact
+			})
+		}
+
+		
+
+		await user.save();
+	}
+
+	await User.updateOne({_id: req.body.userId}, {$set: {'name': req.body.name, 'dob': req.body.dob}})
+				.then(res.json({'success': 'INFO UPDATED'}))
+				.catch(err => res.status(400).json({ err }));
+});

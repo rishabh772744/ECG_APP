@@ -19,7 +19,16 @@ const userSchema = new schema({
 	},
 	deviceId: {
 		type: String,
-	}
+	},
+	dob: {
+		type: Date,
+	},
+	emergency: [
+		{
+			name: String,
+			contact: String
+		}
+	]
 });
 
 

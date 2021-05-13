@@ -25,7 +25,7 @@ const Mobile: React.FC = () => {
   const loginMobile = () => {
     var data = {'mobile': mobile}
     axios
-      .post('http://localhost:8080/api/login', data)
+      .post('https://boiling-temple-22884.herokuapp.com/api/login', data)
       .then(async (res) => {
         await Storage.set({
           key: 'mobile',

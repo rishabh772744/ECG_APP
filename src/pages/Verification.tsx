@@ -31,7 +31,7 @@ const Verification: React.FC = () => {
   	if(otp.length == 4){
   		var data = {'mobile': mobile, 'otp': otp}
   		axios
-	      .post('http://localhost:8080/api/checkLogin', data)
+	      .post('https://boiling-temple-22884.herokuapp.com/api/checkLogin', data)
 	      .then(async (res) => {
 	        console.log(res)
 	        if("success" in res.data){

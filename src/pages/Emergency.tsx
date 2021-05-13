@@ -54,7 +54,7 @@ const Emergency: React.FC = () => {
     }
 
     axios
-      .post('http://localhost:8080/api/getEmergencyContacts', {userId: userId})
+      .post('https://boiling-temple-22884.herokuapp.com/api/getEmergencyContacts', {userId: userId})
       .then(async (res) => {
         console.log(res.data)
         if(firstLoad == 0){
@@ -85,7 +85,7 @@ const Emergency: React.FC = () => {
     var data = {'userId': userId, 'name': emerName, 'contact': emerContact, 'avatar': avatar}
 
     axios
-      .post('http://localhost:8080/api/addEmergencyContact', data)
+      .post('https://boiling-temple-22884.herokuapp.com/api/addEmergencyContact', data)
       .then((res) => {
         console.log(res)
       })

@@ -43,7 +43,7 @@ const UserDetails: React.FC = () => {
 
     var data = {'userId': userId, 'name': name, 'dob': dob, 'emergency': emergency}
     axios
-      .post('http://localhost:8080/api/updateUserInfo', data)
+      .post('https://boiling-temple-22884.herokuapp.com/api/updateUserInfo', data)
       .then((res) => {
         console.log(res)
         history.push('/home');

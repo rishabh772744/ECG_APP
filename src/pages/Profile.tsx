@@ -85,7 +85,7 @@ const Profile: React.FC = () => {
 
     var data = {'userId': userId, 'name': name, 'dob': dob, 'mobile': mobile, 'avatar': avatar}
     axios
-      .post('http://localhost:8080/api/updateUser', data)
+      .post('https://boiling-temple-22884.herokuapp.com/api/updateUser', data)
       .then((res) => {
         console.log(res)
       })
@@ -115,7 +115,7 @@ const Profile: React.FC = () => {
     }
 
     axios
-      .post('http://localhost:8080/api/getUser', {userId: userId})
+      .post('https://boiling-temple-22884.herokuapp.com/api/getUser', {userId: userId})
       .then(async (res) => {
         if(firstLoad == 0){
           await setRet(res.data)

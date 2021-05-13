@@ -69,7 +69,7 @@ const Profile: React.FC = () => {
   async function saveInputChange(){
     const user = await Storage.get({ key: 'user' });
     var userId = JSON.parse(user!.value!)._id!;
-    
+
     var input = document.getElementById("name-input")!;
     input.setAttribute('disabled', 'disabled');
     input = document.getElementById("dob-input")!;
@@ -170,34 +170,36 @@ const Profile: React.FC = () => {
                 console.log('Confirm Okay');
                 await Storage.clear();
                 history.push('/mobile')
+                window.location.reload();
               }
             }
           ]}
         />
+        <div className="scroll-container">
+          <div className="profile-hero"></div>
+          <div className="dp-holder-left" id="left_arrow"><img className="w-100" src="assets/left.png" onClick={leftScroll}/></div>
+          <div className="dp-holder-right" id="right_arrow"><img className="w-100" src="assets/right.png" onClick={rightScroll} /></div>
+          <div className="dp-holder"><img className="w-100" src={"assets/"+avatar} /></div>
+          <div className="edit-placeholder" onClick={enableInput}><FontAwesomeIcon icon={faEdit}/> &nbsp;Edit</div>
 
-        <div className="profile-hero"></div>
-        <div className="dp-holder-left" id="left_arrow"><img className="w-100" src="assets/left.png" onClick={leftScroll}/></div>
-        <div className="dp-holder-right" id="right_arrow"><img className="w-100" src="assets/right.png" onClick={rightScroll} /></div>
-        <div className="dp-holder"><img className="w-100" src={"assets/"+avatar} /></div>
-        <div className="edit-placeholder" onClick={enableInput}><FontAwesomeIcon icon={faEdit}/> &nbsp;Edit</div>
+          <form className="user-dets mx-4">
+            <div className="form-group">
+              <label className="mx-1 px-2" style={{color: '#52BF9C'}}>Full Name</label>
+              <input id="name-input" type="text" className="mb-3 mx-1 px-2" defaultValue={name} onChange={setNameInput} placeholder="First Name  Last Name" disabled/>
+            </div>
+            <div className="form-group">
+              <label className="mx-1 px-2" style={{color: '#52BF9C'}}>Date of Birth</label>
+              <input id="dob-input" type="date" className="mb-3 mx-1 px-2" defaultValue={dob} onChange={setDobInput} placeholder="dd/mm/yy" disabled/>
+            </div>
+            <div className="form-group">
+              <label className="mx-1 px-2" style={{color: '#52BF9C'}}>Mobile Number</label>
+              <input id="mob-input" type="text" className="mb-3 mx-1 px-2" defaultValue={mobile} onChange={setMobileInput} placeholder="+91 XXX XXXXXXX" disabled/>
+            </div>
+          </form>
 
-        <form className="user-dets mx-4">
-          <div className="form-group">
-            <label className="mx-1 px-2" style={{color: '#52BF9C'}}>Full Name</label>
-            <input id="name-input" type="text" className="mb-3 mx-1 px-2" defaultValue={name} onChange={setNameInput} placeholder="First Name  Last Name" disabled/>
+          <div className="mx-5">
+            {buttonState === "logout" ? <div className="my-3 primary-button py-3 px-4 text-center" onClick={() => setShowAlert(true)}>Log Out</div> : <div className="mt-3 primary-button py-3 px-4 text-center" onClick={saveInputChange}>Save Changes</div> }
           </div>
-          <div className="form-group">
-            <label className="mx-1 px-2" style={{color: '#52BF9C'}}>Date of Birth</label>
-            <input id="dob-input" type="date" className="mb-3 mx-1 px-2" defaultValue={dob} onChange={setDobInput} placeholder="dd/mm/yy" disabled/>
-          </div>
-          <div className="form-group">
-            <label className="mx-1 px-2" style={{color: '#52BF9C'}}>Mobile Number</label>
-            <input id="mob-input" type="text" className="mb-3 mx-1 px-2" defaultValue={mobile} onChange={setMobileInput} placeholder="+91 XXX XXXXXXX" disabled/>
-          </div>
-        </form>
-
-        <div className="mx-5">
-          {buttonState === "logout" ? <div className="submit-button py-3 px-4 text-center" onClick={() => setShowAlert(true)}>Log Out</div> : <div className="submit-button py-3 px-4 text-center" onClick={saveInputChange}>Save Changes</div> }
         </div>
         <BottomTabs name="profile" />
       </IonContent>

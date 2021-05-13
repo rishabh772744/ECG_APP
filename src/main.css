@@ -16,6 +16,10 @@ ion-content{
 	font-weight: bold;
 }
 
+.scroll-container{
+	min-height: 100vh;
+}
+
 .verification-container{
 	background-color: #3D4E52;
 	min-height: 100vh;
@@ -450,7 +454,7 @@ ion-content{
 .bottom-tab{
 	width: 100vw;
 	height: 79px;
-	position: absolute;
+	position: sticky;
 	bottom: 0;
 }
 

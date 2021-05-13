@@ -121,45 +121,46 @@ const Emergency: React.FC = () => {
             <div className="primary-button py-3 px-4 m-5 text-center" onClick={submitContactInfo}>Done</div>
           </div>
         </IonModal>
+        <div className="scroll-container">
+          <div className="mx-5 mt-3 login-head">Emergency Contacts</div>
 
-        <div className="mx-5 mt-3 login-head">Emergency Contacts</div>
 
-
-          <div className="mx-5 mt-3">
-            <div className="p-3 mt-2 contact-card" onClick={() => setShowModal(true)}>
-              <div className="row">
-                <div className="col-3">
-                  <div className="user-icon text-center">
-                    <FontAwesomeIcon icon={faPlusCircle} size="3x"/>
-                  </div>
-                </div>
-                <div className="col-9">
-                  <span style={{color: '#52BF9C'}}><b>Add New</b></span>
-                  <div className="mt-4">
-                    Add New Contact
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-5">
-            {emergency.map(contact => ( 
-              <div className="p-3 mt-2 contact-card">
+            <div className="mx-5 mt-3">
+              <div className="p-3 mt-2 contact-card" onClick={() => setShowModal(true)}>
                 <div className="row">
                   <div className="col-3">
                     <div className="user-icon text-center">
-                      <img src={"assets/"+contact['avatar']} />
+                      <FontAwesomeIcon icon={faPlusCircle} size="3x"/>
                     </div>
                   </div>
                   <div className="col-9">
-                    <span style={{color: '52BF9C'}}><b>{contact['name']}</b></span>
+                    <span style={{color: '#52BF9C'}}><b>Add New</b></span>
                     <div className="mt-4">
-                      {contact['contact']}
+                      Add New Contact
                     </div>
                   </div>
                 </div>
               </div>
-              ))}
+
+              <div className="mt-5">
+              {emergency.map(contact => ( 
+                <div className="p-3 mt-2 contact-card">
+                  <div className="row">
+                    <div className="col-3">
+                      <div className="user-icon text-center">
+                        <img src={"assets/"+contact['avatar']} />
+                      </div>
+                    </div>
+                    <div className="col-9">
+                      <span style={{color: '52BF9C'}}><b>{contact['name']}</b></span>
+                      <div className="mt-4">
+                        {contact['contact']}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                ))}
+              </div>
             </div>
           </div>
           <BottomTabs name="emergency" />

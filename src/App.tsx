@@ -44,12 +44,20 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/mobile">
-          <Mobile />
-        </Route>
-        <Route exact path="/verification">
-          <Verification />
-        </Route>
+        <Route
+          exact
+          path="/mobile"
+          render={() => {
+            return "value" in ret && ret['value'] != null ? <Home/> : <Mobile/>;
+          }}
+        />
+        <Route
+          exact
+          path="/verification"
+          render={() => {
+            return "value" in ret && ret['value'] != null ? <Home/> : <Verification/>;
+          }}
+        />
         <Route exact path="/verification-success">
           <VerificationSuccess />
         </Route>

@@ -42,23 +42,24 @@ const Mobile: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
+          <div className="scroll-container">
+            <div className="circle-three"></div>
+            <div className="circle-two"></div>
+            <div className="circle-one"></div>
 
-          <div className="circle-three"></div>
-          <div className="circle-two"></div>
-          <div className="circle-one"></div>
+            <div className="page-header">Mobile <br/>Verification</div>
+            
+            <div className="page-subtitle">Please enter your mobile number to verify your account</div>
 
-          <div className="page-header">Mobile <br/>Verification</div>
-          
-          <div className="page-subtitle">Please enter your mobile number to verify your account</div>
+            <div className="mt-4 mx-4">
+              <input className="mb-2 mx-1 px-2" type="text" placeholder="Country Code"/>
+              <input className="mb-2 mx-1 px-2" type="text" value={mobile} onChange={setMobileInput} placeholder="Mobile Number"/>
+            </div>
 
-          <div className="mt-4 mx-4">
-            <input className="mb-2 mx-1 px-2" type="text" placeholder="Country Code"/>
-            <input className="mb-2 mx-1 px-2" type="text" value={mobile} onChange={setMobileInput} placeholder="Mobile Number"/>
-          </div>
-
-          
-          <div className="my-5 text-center">
-            <div className="arrowButton py-3" onClick={loginMobile}><FontAwesomeIcon icon={faArrowRight} size="2x" color="white"/></div>
+            
+            <div className="my-5 text-center">
+              <div className="arrowButton py-3" onClick={loginMobile}><FontAwesomeIcon icon={faArrowRight} size="2x" color="white"/></div>
+            </div>
           </div>
       </IonContent>
     </IonPage>

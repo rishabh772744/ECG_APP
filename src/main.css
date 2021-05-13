@@ -531,6 +531,17 @@ ion-content{
 	right: 20px;
 }
 
+select{
+	width: 303px;
+	height: 50px;
+	border-style: solid;
+	border-radius: 20px !important;
+	background: rgba(0, 0, 0, 0.05);
+	border-color: rgba(0, 0, 0, 0.05);
+	font-family: Poppins;
+	max-width: 80vw; 
+}
+
 input{
 	width: 303px;
 	height: 50px;

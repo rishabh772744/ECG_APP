@@ -1,5 +1,5 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonModal, IonButton } from '@ionic/react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import './../main.css';
 import './../bootstrap.css';
@@ -23,11 +23,35 @@ const Emergency: React.FC = () => {
   const [emergency, setEmergency] = useState<any>([]);
   const [firstLoad, setFirstLoad] = useState(0);
   const [userId, setUserId] = useState('');
+  const [index, setIndex] = useState(0);
+  const [avatar, setAvatar] = useState('boy.png');
   const history = useHistory();
+
+  const profilePics = ["boy.png", "girl.png", "man.png", "uncle.png", "aunt.png"]
+
+  useEffect(() => {
+    setAvatar(profilePics[index])
+  }, [index]);
+
+  async function leftScroll(){
+    if(index == 0)
+      await setIndex(profilePics.length-1)
+    else
+      await setIndex(index-1)
+  }
+
+  async function rightScroll(){
+    if(index == profilePics.length-1)
+      await setIndex(0)
+    else
+      await setIndex(index+1)
+  }
 
   const getEmergencyContacts = async () => {
     const user = await Storage.get({ key: 'user' });
-    var userId = JSON.parse(user!.value!)._id!;
+    if(user && JSON.parse(user!.value!)){
+      var userId = JSON.parse(user!.value!)._id!;
+    }
 
     axios
       .post('http://localhost:8080/api/getEmergencyContacts', {userId: userId})
@@ -55,8 +79,10 @@ const Emergency: React.FC = () => {
 
   const submitContactInfo = async () => {
     const user = await Storage.get({ key: 'user' });
-    var userId = JSON.parse(user!.value!)._id!;
-    var data = {'userId': userId, 'name': emerName, 'contact': emerContact}
+    if(user && JSON.parse(user!.value!)){
+      var userId = JSON.parse(user!.value!)._id!;
+    }
+    var data = {'userId': userId, 'name': emerName, 'contact': emerContact, 'avatar': avatar}
 
     axios
       .post('http://localhost:8080/api/addEmergencyContact', data)
@@ -82,7 +108,10 @@ const Emergency: React.FC = () => {
           <div className="modal-container">
             <div className="text-center mt-5 modal-header-text"><b>New Contact</b></div>
             <form className="container mt-5 mx-1">
-              <div className="form-group">
+              <div className="dp-holder-left-emergency"><img className="w-100" src="assets/left.png" onClick={leftScroll}/></div>
+              <div className="dp-holder-right-emergency" ><img className="w-100" src="assets/right.png" onClick={rightScroll} /></div>
+              <div className="dp-holder-emergency"><img className="w-100" src={"assets/"+avatar} /></div>
+              <div className="form-group mt-4">
                 <input type="text" className="mb-3 mx-1 px-2" value={emerName} onChange={setEmerNameInput} placeholder="Name" />
               </div>
               <div className="form-group">
@@ -119,7 +148,7 @@ const Emergency: React.FC = () => {
                 <div className="row">
                   <div className="col-3">
                     <div className="user-icon text-center">
-                      <img src="assets/1.png" />
+                      <img src={"assets/"+contact['avatar']} />
                     </div>
                   </div>
                   <div className="col-9">

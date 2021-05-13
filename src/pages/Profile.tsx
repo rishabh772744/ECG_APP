@@ -110,7 +110,9 @@ const Profile: React.FC = () => {
 
   const obtainUserInfo = async () => {
     const user = await Storage.get({ key: 'user' });
-    var userId = JSON.parse(user!.value!)._id!;
+    if(user && JSON.parse(user!.value!)){
+      var userId = JSON.parse(user!.value!)._id!;
+    }
 
     axios
       .post('http://localhost:8080/api/getUser', {userId: userId})

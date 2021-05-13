@@ -58,7 +58,7 @@ const UserDetails: React.FC = () => {
     if("name" in JSON.parse(ret!.value!)){
       await setName(JSON.parse(ret!.value!)['name'])
     }
-    if("dob" in JSON.parse(ret!.value!)){
+    if("dob" in JSON.parse(ret!.value!) && JSON.parse(ret!.value!)['dob']){
       await setDob(JSON.parse(ret!.value!)['dob'].substring(0, 10))
     }
   }

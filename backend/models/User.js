@@ -23,10 +23,18 @@ const userSchema = new schema({
 	dob: {
 		type: Date,
 	},
+	avatar: {
+		type: String,
+		default: 'boy.png'
+	},
 	emergency: [
 		{
 			name: String,
-			contact: String
+			contact: String,
+			avatar: {
+				type: String,
+				default: 'boy.png'
+			},
 		}
 	]
 });

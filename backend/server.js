@@ -99,7 +99,8 @@ app.post('/api/addEmergencyContact', async function(req, res) {
 		if(req.body.name.trim() != "" && req.body.contact.trim() != ""){
 			user.emergency.unshift({
 				'name': req.body.name,
-				'contact': req.body.contact
+				'contact': req.body.contact,
+				'avatar': req.body.avatar
 			})
 		}
 		await user.save();
@@ -124,4 +125,23 @@ app.post('/api/getEmergencyContacts', async function(req, res) {
 	else{
 		res.status(400).json({ 'failure': 'USER NOT FOUND' })
 	}
+});
+
+app.post('/api/getUser', async function(req, res) {
+	console.log(req.body)
+	const user = await User.findById(req.body.userId)
+
+	if(user){
+		res.json(user)
+	}
+	else{
+		res.status(400).json({ 'failure': 'USER NOT FOUND' })
+	}
+});
+
+app.post('/api/updateUser', async function(req, res) {
+	console.log(req.body)
+	await User.updateOne({_id: req.body.userId}, {$set: {'name': req.body.name, 'dob': req.body.dob, 'mobile': req.body.mobile, 'avatar': req.body.avatar}})
+				.then(res.json({'success': 'INFO UPDATED'}))
+				.catch(err => res.status(400).json({ err }));
 });

@@ -1,5 +1,8 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import axios from 'axios';
+import Chart from "react-google-charts";
 
 import { BottomTabs } from './../components/BottomTabs';
 
@@ -9,6 +12,69 @@ import './../bootstrap.css';
 const Home: React.FC = () => {
 
   const [deviceStatus, setDeviceStatus] = useState('off')
+  const [plotData, setPlotData] = useState<any>([])
+  const [bpm, setBpm] = useState(0)
+  const [fitness, setFitness] = useState("")
+
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+
+  useEffect(() => {
+    if(deviceStatus === "on"){
+      const interval = setInterval(() => startMeasuring(), 20000);
+      return () => {
+        clearInterval(interval);
+      };
+    }
+    return;
+  }, [plotData]);
+
+  async function startMeasuring(){
+
+    
+    await setDeviceStatus("measuring")
+
+    axios
+        .get('http://api.thingspeak.com/channels/1397317/feeds.json?api_key=8TV4HD1VG0XN611S&results=30')
+        .then(async function (response) {
+          var curr_time = new Date(Date.now()).toISOString()
+          var useful_data = response.data.feeds.filter(datapoint => (Date.parse(curr_time)-Date.parse(new Date(datapoint.created_at).toISOString()))/60000 <= 30);
+          console.log(useful_data)
+          const tempPlotData : any[] = [];
+          var len = useful_data.length
+
+          tempPlotData.push([
+                    'Time',
+                    'Field5',
+                    'Field6',
+                    'Field7',
+                  ])
+          for(var i = 0; i<len; i++){
+            const tempPlotDataPoint : any[] = [];
+            tempPlotDataPoint.push(i)
+            tempPlotDataPoint.push(parseFloat(useful_data[i].field5))
+            tempPlotDataPoint.push(parseFloat(useful_data[i].field6))
+            tempPlotDataPoint.push(parseFloat(useful_data[i].field7))
+
+            tempPlotData.push(tempPlotDataPoint)
+          }
+          await setPlotData(tempPlotData)
+          
+          await setBpm(parseInt(useful_data[len-1].field8))
+          if(bpm <=100 && bpm >=60){
+            await setFitness("GOOD")
+          }
+          else{
+            await setFitness("POOR")
+          }
+        })
+
+
+    await delay(2000);
+
+    await setDeviceStatus("on")
+
+
+  }
 
   return (
     <IonPage>
@@ -65,8 +131,32 @@ const Home: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="my-5 primary-button py-3 px-4 text-center" onClick={() => setDeviceStatus("on")}>Start</div>
+              <div className="my-5 primary-button py-3 px-4 text-center" onClick={() => startMeasuring()}>Start</div>
             </div>  
+          </div>
+
+      </IonContent> : ''}
+      {deviceStatus === "measuring" ? 
+      <IonContent fullscreen>
+        <div className="scroll-container">
+          <div className="mx-5 mt-3 row no-gutter text-center">
+              <div className="col-6 active-button py-2">
+                Measure
+              </div>
+              <div className="col-6 inactive-button py-2">
+                History
+              </div>
+            </div>
+            <div className="my-3 mx-5 text-center" style={{ fontFamily: 'Poppins'}}>Device Status: ON</div>
+
+            <div className="m-5 text-center py-4">
+              <img className="heartbeat" src="https://i.ibb.co/RjgJz70/Group-6894.png" />
+            </div>
+
+            <div className="mx-5 text-center py-4">
+              Measuring... <br/>
+              Try to stay still and quiet.
+            </div>
           </div>
 
       </IonContent> : ''}
@@ -84,14 +174,23 @@ const Home: React.FC = () => {
             <div className="my-3 mx-5 text-center" style={{ fontFamily: 'Poppins'}}>Device Status: ON</div>
 
             <div className="mx-5 text-center bg-dark-heart py-4">
-              <div className="bpm-style">72 BPM</div>
+              <div className="bpm-style">{bpm} BPM</div>
               <img className="mt-3 heartbeat-dark" src="https://i.ibb.co/rbXL1ct/Frame.png" />
             </div>
 
-            <div className="my-3 mx-5 text-center">FITNESS STATUS: <b>GOOD</b></div> 
+            <div className="my-3 mx-5 text-center">FITNESS STATUS: <b>{fitness}</b></div> 
 
-            <div className="text-center py-4">
-              <img className="mt-3 line-chart" src="https://i.ibb.co/GMJdwyQ/Line-chart.png" />
+            <div className="text-center py-4 mx-2">
+              <Chart
+                width={'90vw'}
+                chartType="Line"
+                loader={<div>Loading Chart</div>}
+                data={plotData}
+                options={{
+                  legend: {position: 'none'}
+                }}
+                rootProps={{ 'data-testid': '3' }}
+              />
             </div>
           </div>
 

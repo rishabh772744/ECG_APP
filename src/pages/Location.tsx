@@ -3,6 +3,8 @@ import React, { useState, useCallback } from 'react';
 import './../main.css';
 import './../bootstrap.css';
 
+import axios from 'axios';
+
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
 import { BottomTabs } from './../components/BottomTabs';
@@ -10,11 +12,6 @@ import { BottomTabs } from './../components/BottomTabs';
 const containerStyle = {
   width: 'auto',
   height: '92vh'
-};
-
-const center = {
-  lat: 25.592147,
-  lng: 85.141234
 };
 
 const Location: React.FC = () => {
@@ -25,6 +22,13 @@ const Location: React.FC = () => {
   })
 
   const [map, setMap] = useState(null)
+  const [lat, setLat] = useState(0.0)
+  const [long, setLong] = useState(0.0)
+
+  var center = {
+    lat: 0,
+    lng: 0
+  }
 
   const onLoad = useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds();
@@ -36,6 +40,22 @@ const Location: React.FC = () => {
     setMap(null)
   }, [])
 
+  async function getLocation(){
+    axios
+        .get('http://api.thingspeak.com/channels/1397317/feeds.json?api_key=8TV4HD1VG0XN611S&results=1')
+        .then(async function (response) {
+          await setLat(response.data.feeds[0].field1)
+          await setLong(response.data.feeds[0].field2)
+
+          center['lat'] = lat;
+          center['lng'] = long;
+
+          console.log(center)
+
+        })
+  }
+
+  getLocation();
 
 
   return (

@@ -13,25 +13,33 @@ const Home: React.FC = () => {
 
   const [deviceStatus, setDeviceStatus] = useState('off')
   const [plotData, setPlotData] = useState<any>([])
-  const [bpm, setBpm] = useState(0)
+  const [bpm, setBpm] = useState(-1)
   const [fitness, setFitness] = useState("")
 
   const delay = ms => new Promise(res => setTimeout(res, ms));
 
   useEffect(() => {
-    if(deviceStatus === "on"){
-      const interval = setInterval(() => startMeasuring(), 20000);
-      return () => {
-        clearInterval(interval);
-      };
+    async function repeatMeasuring(){
+      if(deviceStatus === "on"){
+        await delay(20000);
+        startMeasuring();    
+      }
     }
-    return;
+    repeatMeasuring()   
   }, [plotData]);
 
-  async function startMeasuring(){
+  async function initiateMeasuring(){
 
     
     await setDeviceStatus("measuring")
+    await delay(2000);
+    startMeasuring();
+    measureBpm();
+  }
+
+  async function startMeasuring(){
+
+    await setDeviceStatus("on")
 
     axios
         .get('http://api.thingspeak.com/channels/1397317/feeds.json?api_key=8TV4HD1VG0XN611S&results=30')
@@ -59,6 +67,22 @@ const Home: React.FC = () => {
           }
           await setPlotData(tempPlotData)
           
+         
+        })
+
+
+   
+
+
+  }
+
+  async function measureBpm(){
+    axios
+        .get('http://api.thingspeak.com/channels/1397317/feeds.json?api_key=8TV4HD1VG0XN611S&results=30')
+        .then(async function (response) {
+          var curr_time = new Date(Date.now()).toISOString()
+          var useful_data = response.data.feeds.filter(datapoint => (Date.parse(curr_time)-Date.parse(new Date(datapoint.created_at).toISOString()))/60000 <= 30);
+          var len = useful_data.length
           await setBpm(parseInt(useful_data[len-1].field8))
           if(bpm <=100 && bpm >=60){
             await setFitness("GOOD")
@@ -66,15 +90,9 @@ const Home: React.FC = () => {
           else{
             await setFitness("POOR")
           }
-        })
-
-
-    await delay(2000);
-
-    await setDeviceStatus("on")
-
-
+        })  
   }
+
 
   return (
     <IonPage>
@@ -131,7 +149,7 @@ const Home: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="my-5 primary-button py-3 px-4 text-center" onClick={() => startMeasuring()}>Start</div>
+              <div className="my-5 primary-button py-3 px-4 text-center" onClick={() => initiateMeasuring()}>Start</div>
             </div>  
           </div>
 
@@ -178,8 +196,7 @@ const Home: React.FC = () => {
               <img className="mt-3 heartbeat-dark" src="https://i.ibb.co/rbXL1ct/Frame.png" />
             </div>
 
-            <div className="my-3 mx-5 text-center">FITNESS STATUS: <b>{fitness}</b></div> 
-
+            <div className="my-3 mx-5 text-center">FITNESSssssssss STATUS: <b>{fitness}</b>{plotData}</div>
             <div className="text-center py-4 mx-2">
               <Chart
                 width={'90vw'}

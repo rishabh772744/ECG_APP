@@ -9,5 +9,7 @@
       "launchShowDuration": 0
     }
   },
-  "cordova": {}
+  "cordova": {},
+  "server": { "androidScheme": "http",
+  "allowNavigation": [ "api.thingspeak.com/channels/1397317/feeds.json?api_key=8TV4HD1VG0XN611S&results=30" ] }
 }
